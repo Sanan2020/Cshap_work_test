@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace test
 {
@@ -30,7 +32,12 @@ namespace test
                  string MY_DEVELOPER_KEY = ""+key+"";
                  RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);*/
 
-                RasterSupport.SetLicense(license,File.ReadAllText(key));
+                RasterSupport.SetLicense(textBox1.Text, System.IO.File.ReadAllText(textBox2.Text));
+                /* StreamWriter streamwri = new StreamWriter("pathLicense.txt"); //bin/Debug
+                 streamwri.WriteLine(license);
+                 streamwri.WriteLine(key);
+                 streamwri.Close();
+                 Console.WriteLine("seve part seccess...");*/
                 bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
                 if (isLocked)
                     Console.WriteLine("Document support is locked");
@@ -51,7 +58,7 @@ namespace test
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            SetLicenseFileExample();
+           SetLicenseFileExample();
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -77,6 +84,59 @@ namespace test
                 Console.WriteLine(key);
                 textBox2.Text = key;
             }
+        }
+        String[] ls;
+        String lscol;
+        String rf;
+        String rfile;
+        List<String> list = new List<String>();
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            //if มี license
+            //เข้าสู่หน้าโปรแกรม
+
+
+
+            /* RasterSupport.SetLicense(license, File.ReadAllText(key));
+             bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
+             if (isLocked)
+                 Console.WriteLine("Document support is locked");
+             else
+             {
+                 Console.WriteLine("Document support is unlocked");
+                 this.Hide();
+                 Form1 frm = new Form1();
+                 frm.Show();
+             }*/
+
+            //else if ถ้าไม่มี
+            //ทำการสร้าง part ไปยังที่อยู่ของ license
+            
+           /* StreamReader streamread = new StreamReader("pathLicense.txt");
+            while ((rfile = streamread.ReadLine()) != null)
+            {
+                rf = rfile;                         //text = อ่านข้อความทีละบรรทัด
+                list.Add(rf);
+          
+            }
+            textBox1.Text = list[0].ToString();
+            textBox2.Text = list[1].ToString();
+            RasterSupport.SetLicense(list[0].ToString(), System.IO.File.ReadAllText(list[1].ToString()));
+            bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
+            if (isLocked)
+                Console.WriteLine("Document support is locked");
+            else
+            {
+                Console.WriteLine("Document support is unlocked");
+                
+                Form1 frm = new Form1();
+                frm.Show();
+                //this.Hide();
+            }*/
+            /*foreach (String dd in list) { 
+
+                 Console.WriteLine(dd);
+             }*/
         }
     }
 }

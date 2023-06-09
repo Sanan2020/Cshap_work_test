@@ -30,15 +30,16 @@
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panAddress = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnExpander = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.btnExpander = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.panAddress3 = new System.Windows.Forms.Panel();
             this.trackBar7 = new System.Windows.Forms.TrackBar();
@@ -50,7 +51,6 @@
             this.trackBar6 = new System.Windows.Forms.TrackBar();
             this.trackBar5 = new System.Windows.Forms.TrackBar();
             this.btnExpander2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
@@ -97,6 +97,17 @@
             this.panAddress.Size = new System.Drawing.Size(248, 232);
             this.panAddress.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.Location = new System.Drawing.Point(181, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(62, 19);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Reset";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -114,6 +125,18 @@
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "label5";
+            // 
+            // btnExpander
+            // 
+            this.btnExpander.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExpander.Location = new System.Drawing.Point(0, 0);
+            this.btnExpander.Name = "btnExpander";
+            this.btnExpander.Size = new System.Drawing.Size(246, 26);
+            this.btnExpander.TabIndex = 1;
+            this.btnExpander.Text = "ContrastBrightnessIntensity";
+            this.btnExpander.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExpander.UseVisualStyleBackColor = true;
+            this.btnExpander.Click += new System.EventHandler(this.btnExpander_Click);
             // 
             // label4
             // 
@@ -164,17 +187,6 @@
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(208, 45);
             this.trackBar2.TabIndex = 3;
-            // 
-            // btnExpander
-            // 
-            this.btnExpander.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExpander.Location = new System.Drawing.Point(0, 0);
-            this.btnExpander.Name = "btnExpander";
-            this.btnExpander.Size = new System.Drawing.Size(246, 26);
-            this.btnExpander.TabIndex = 1;
-            this.btnExpander.Text = "ContrastBrightnessIntensity";
-            this.btnExpander.UseVisualStyleBackColor = true;
-            this.btnExpander.Click += new System.EventHandler(this.btnExpander_Click);
             // 
             // trackBar1
             // 
@@ -269,17 +281,6 @@
             this.btnExpander2.Text = "UnsharpMask";
             this.btnExpander2.UseVisualStyleBackColor = true;
             this.btnExpander2.Click += new System.EventHandler(this.btnExpander2_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(18, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(46, 21);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Reset";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // button2
             // 

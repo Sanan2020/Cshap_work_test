@@ -89,29 +89,31 @@ namespace test
             }
             Expanded3 = !Expanded3;
         }
-        Panel myPanel = new Panel();
+        //Panel myPanel = new Panel();
         private void Form1_Load(object sender, EventArgs e)
         {
 
             SetLicenseFileExample();
+            Form2 frm = new Form2();
+            frm.Dispose();
             // Form2 frm = new Form2();
             // frm.Show();
-           
-            myPanel.Size = new Size(200, 200);
-            myPanel.BackColor = Color.Gray;
-            this.Controls.Add(myPanel); // เพิ่ม Panel เข้ากับ Container (ฟอร์มหรือหน้าต่าง)
+
+            /* myPanel.Size = new Size(200, 200);
+             myPanel.BackColor = Color.Gray;
+             this.Controls.Add(myPanel); // เพิ่ม Panel เข้ากับ Container (ฟอร์มหรือหน้าต่าง)*/
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            myPanel.Visible = false; // ซ่อน Panel
+           // myPanel.Visible = false; // ซ่อน Panel
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            myPanel.Visible = true; // แสดง Panel
+          //  myPanel.Visible = true; // แสดง Panel
 
         }
     }
