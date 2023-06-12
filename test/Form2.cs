@@ -31,16 +31,6 @@ namespace test
                 /* string MY_LICENSE_FILE = @""+license+"";
                  string MY_DEVELOPER_KEY = ""+key+"";
                  RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);*/
-
-
-                /* StreamWriter streamwri = new StreamWriter("pathLicense.txt"); //bin/Debug
-                 streamwri.WriteLine(license);
-                 streamwri.WriteLine(key);
-                 streamwri.Close();
-                 Console.WriteLine("seve part seccess...");*/
-
-                
-                ////////////////////
                 RasterSupport.SetLicense(textBox1.Text, System.IO.File.ReadAllText(textBox2.Text));
                 bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
                 if (isLocked)
@@ -48,10 +38,15 @@ namespace test
                 else
                 {
                     Console.WriteLine("Document support is unlocked");
-                     //this.Hide();
-                     Form1 frm = new Form1();
-                     frm.Show();
+                    StreamWriter streamwri = new StreamWriter("pathLicense.txt"); //bin/Debug
+                    streamwri.WriteLine(textBox1.Text);
+                    streamwri.WriteLine(textBox2.Text);
+                    streamwri.Close();
+                    Console.WriteLine("seve part seccess...");
+
                     this.Hide();
+                    Form1 frm = new Form1();
+                    frm.Show();
                 }
             }
             catch (Exception e)
@@ -90,67 +85,42 @@ namespace test
                 textBox2.Text = key;
             }
         }
-        String[] ls;
-        String lscol;
         String rf;
         String rfile;
         List<String> list = new List<String>();
-        private async void Form2_Load(object sender, EventArgs e)
+        private void Form2_Load(object sender, EventArgs e)
         {
-            //if มี license
-            //เข้าสู่หน้าโปรแกรม
-
-
-
-            /* RasterSupport.SetLicense(license, File.ReadAllText(key));
-             bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
-             if (isLocked)
-                 Console.WriteLine("Document support is locked");
-             else
-             {
-                 Console.WriteLine("Document support is unlocked");
-                 this.Hide();
-                 Form1 frm = new Form1();
-                 frm.Show();
-             }*/
-
-            //else if ถ้าไม่มี
-            //ทำการสร้าง part ไปยังที่อยู่ของ license
-            
-            StreamReader streamread = new StreamReader("pathLicense.txt");
-            while ((rfile = streamread.ReadLine()) != null)
+            try
             {
-                rf = rfile;                         //text = อ่านข้อความทีละบรรทัด
-                list.Add(rf);
-          
+                if (System.IO.File.Exists("pathLicense.txt"))//ถ้าเจอไฟล์
+                {
+                    //MessageBox.Show("yes");
+                    StreamReader streamread = new StreamReader("pathLicense.txt");//อ่านไฟล์
+                    while ((rfile = streamread.ReadLine()) != null)
+                    {
+                        rf = rfile;                         //text = อ่านข้อความทีละบรรทัด
+                        list.Add(rf);
+                    }
+                    streamread.Close();
+                    Console.WriteLine(list.Count());
+                    if (list.Count() >= 2)
+                    {
+                        textBox1.Text = list[0].ToString();
+                        textBox2.Text = list[1].ToString();
+                    }
+
+                }
             }
-           // textBox1.Text = list[0].ToString();
-           // textBox2.Text = list[1].ToString();
-            RasterSupport.SetLicense(list[0].ToString(), System.IO.File.ReadAllText(list[1].ToString()));
-            bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
-            if (isLocked)
-                Console.WriteLine("Document support is locked");
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Document support is unlocked");
-               
-                Form1 frm = new Form1();
-               frm.Show();
-
-                timer1.Start();
+                MessageBox.Show(ex.Message);
             }
-            /*foreach (String dd in list) { 
 
-                 Console.WriteLine(dd);
-             }*/
-           
         }
-        
-        private void timer1_Tick(object sender, EventArgs e)
+
+        private void Form2_Shown(object sender, EventArgs e)
         {
-            this.Hide();
-            //MessageBox.Show("dd");
-            timer1.Stop();
+            button3.PerformClick();
         }
     }
 }
