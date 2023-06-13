@@ -57,6 +57,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.l_zoom = new System.Windows.Forms.Label();
             this.l_xy = new System.Windows.Forms.Label();
+            this.btnAuto = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.panAddress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -310,9 +311,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(15, 21);
+            this.pictureBox1.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(500, 500);
+            this.pictureBox1.Size = new System.Drawing.Size(527, 534);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
@@ -347,11 +348,22 @@
             this.l_xy.TabIndex = 11;
             this.l_xy.Text = "label8";
             // 
+            // btnAuto
+            // 
+            this.btnAuto.Location = new System.Drawing.Point(572, 539);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 12;
+            this.btnAuto.Text = "Auto";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 574);
+            this.Controls.Add(this.btnAuto);
             this.Controls.Add(this.l_xy);
             this.Controls.Add(this.l_zoom);
             this.Controls.Add(this.panel1);
@@ -416,6 +428,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label l_zoom;
         private System.Windows.Forms.Label l_xy;
+        private System.Windows.Forms.Button btnAuto;
     }
 }
 

@@ -154,7 +154,8 @@ namespace test
                  Form2 frm2 = new Form2();
                 frm2.Show();
                 this.Hide();
-            }*/ 
+            }*/
+           // MessageBox.Show(pictureBox1.Location.ToString());
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -171,22 +172,27 @@ namespace test
         
         protected override void OnMouseWheel(MouseEventArgs e){
             //MessageBox.Show("m");
-          
-           //pictureBox1.Image = ZoomP
+
+            //pictureBox1.Image = ZoomP
 
             if (e.Delta > 0)
             {
                 //pictureBox1.Image = null;
                 // ซูมอิน (เพิ่มขนาดภาพ)
-                pictureBox1.Width += (int)(pictureBox1.Width * 0.1);
-                pictureBox1.Height += (int)(pictureBox1.Height * 0.1);
+                if (pictureBox1.Width < 4500 || pictureBox1.Width < 4500){ //กำหนดขอบเขตการขยายภาพ
+                    pictureBox1.Width += (int)(pictureBox1.Width * 0.1);
+                    pictureBox1.Height += (int)(pictureBox1.Height * 0.1);
+                }
             }
             else if (e.Delta < 0)
             {
                 //pictureBox1.Image = null;
                 // ซูมเอาท์ (ลดขนาดภาพ)
-                pictureBox1.Width -= (int)(pictureBox1.Width * 0.1);
-                pictureBox1.Height -= (int)(pictureBox1.Height * 0.1);
+                if (pictureBox1.Width > 400 || pictureBox1.Width > 400) { //กำหนดขอบเขตการลดภาพ
+                    pictureBox1.Width -= (int)(pictureBox1.Width * 0.1);
+                    pictureBox1.Height -= (int)(pictureBox1.Height * 0.1);
+                }
+                    
             }
             l_zoom.Text = "w "+pictureBox1.Width.ToString()+" h"+pictureBox1.Height.ToString();
         }
@@ -200,7 +206,7 @@ namespace test
         bool Dragging;
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-           //Dragging = false;
+           Dragging = false;
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -219,8 +225,14 @@ namespace test
             Control c = sender as Control;
             if (Dragging && c != null)
             {
-                c.Top = e.Y + c.Top - yPos;
-                c.Left = e.X + c.Left - xPos;
+                if (c.Top <= 300)
+                {
+                    c.Top = e.Y + c.Top - yPos;
+                }
+                else {
+                    
+                }
+               c.Left = e.X + c.Left - xPos;
 
                 Console.WriteLine("c.Top " + c.Top.ToString());
                 Console.WriteLine("c.Left " + c.Left.ToString());
@@ -231,6 +243,11 @@ namespace test
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //MessageBox.Show("Closing");
+        }
+
+        private void btnAuto_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Location = new Point(0,0);
         }
     }
 }
