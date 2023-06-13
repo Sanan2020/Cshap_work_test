@@ -100,14 +100,16 @@ namespace test
         String rf;
         String rfile;
         List<String> list = new List<String>();
+        
         private void Form1_Load(object sender, EventArgs e)
         {
+            pictureBox1.Image = Image.FromFile(@"C:\Users\Administrator\Downloads\poc\image\Gray-FN.jpg");
             //if มี
-           // SetLicenseFileExample();
+            // SetLicenseFileExample();
 
             //else if ไม่มี
-           /* Form2 frm = new Form2();
-            frm.Show();*/
+            /* Form2 frm = new Form2();
+             frm.Show();*/
 
 
 
@@ -118,10 +120,10 @@ namespace test
              myPanel.BackColor = Color.Gray;
              this.Controls.Add(myPanel); // เพิ่ม Panel เข้ากับ Container (ฟอร์มหรือหน้าต่าง)*/
             /////////////////////
-            
+
 
             /*try {*/
-                StreamReader streamread = new StreamReader("pathLicense.txt");
+            StreamReader streamread = new StreamReader("pathLicense.txt");
                 while ((rfile = streamread.ReadLine()) != null)
                 {
                     rf = rfile;                         //text = อ่านข้อความทีละบรรทัด
@@ -152,9 +154,8 @@ namespace test
                  Form2 frm2 = new Form2();
                 frm2.Show();
                 this.Hide();
-            }*/
+            }*/ 
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
            // myPanel.Visible = false; // ซ่อน Panel
@@ -165,6 +166,71 @@ namespace test
         {
           //  myPanel.Visible = true; // แสดง Panel
 
+        }
+
+        
+        protected override void OnMouseWheel(MouseEventArgs e){
+            //MessageBox.Show("m");
+          
+           //pictureBox1.Image = ZoomP
+
+            if (e.Delta > 0)
+            {
+                //pictureBox1.Image = null;
+                // ซูมอิน (เพิ่มขนาดภาพ)
+                pictureBox1.Width += (int)(pictureBox1.Width * 0.1);
+                pictureBox1.Height += (int)(pictureBox1.Height * 0.1);
+            }
+            else if (e.Delta < 0)
+            {
+                //pictureBox1.Image = null;
+                // ซูมเอาท์ (ลดขนาดภาพ)
+                pictureBox1.Width -= (int)(pictureBox1.Width * 0.1);
+                pictureBox1.Height -= (int)(pictureBox1.Height * 0.1);
+            }
+            l_zoom.Text = "w "+pictureBox1.Width.ToString()+" h"+pictureBox1.Height.ToString();
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            //MessageBox.Show("E");
+        }
+        int xPos;
+        int yPos;
+        bool Dragging;
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+           //Dragging = false;
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left) { 
+                Dragging = true;
+                xPos = e.X;
+                yPos = e.Y;
+               // Console.WriteLine("xPos " + xPos);
+               // Console.WriteLine("yPos " + yPos);
+            }
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Control c = sender as Control;
+            if (Dragging && c != null)
+            {
+                c.Top = e.Y + c.Top - yPos;
+                c.Left = e.X + c.Left - xPos;
+
+                Console.WriteLine("c.Top " + c.Top.ToString());
+                Console.WriteLine("c.Left " + c.Left.ToString());
+            }
+            l_xy.Text = pictureBox1.Location.ToString();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //MessageBox.Show("Closing");
         }
     }
 }
