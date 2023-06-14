@@ -14,33 +14,38 @@ namespace test
 {
     public partial class Form1 : Form
     {
+        internal static Form2 form2;
+        internal static Form1 form1;
         public Form1()
         {
             InitializeComponent();
+            form1 = this;
         }
+    
 
-       // string MY_LICENSE_FILE = @"C:\LEADTOOLS22\Support\Common\License\LEADTOOLS.LIC";
-       // string MY_DEVELOPER_KEY = "o8xPXu1T0paMbRbDS9FNk5KRN8AXLmsI5d253qlp7DM=";
-       /* public void SetLicenseFileExample()
-        {
-            try {
-                
-                //RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);
-            bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
-               
-            if (isLocked)
-                Console.WriteLine("Document support is locked");
-            else
-                Console.WriteLine("Document support is unlocked");
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e.Message);
-                MessageBox.Show(e.Message);
+     
+        // string MY_LICENSE_FILE = @"C:\LEADTOOLS22\Support\Common\License\LEADTOOLS.LIC";
+        // string MY_DEVELOPER_KEY = "o8xPXu1T0paMbRbDS9FNk5KRN8AXLmsI5d253qlp7DM=";
+        /* public void SetLicenseFileExample()
+         {
+             try {
 
-            }
-           
-        }*/
+                 //RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);
+             bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
+
+             if (isLocked)
+                 Console.WriteLine("Document support is locked");
+             else
+                 Console.WriteLine("Document support is unlocked");
+             }
+             catch (Exception e)
+             {
+                 //Console.WriteLine(e.Message);
+                 MessageBox.Show(e.Message);
+
+             }
+
+         }*/
         private bool Expanded = false;
         private void btnExpander_Click(object sender, EventArgs e)
         {
@@ -248,6 +253,29 @@ namespace test
         private void btnAuto_Click(object sender, EventArgs e)
         {
             pictureBox1.Location = new Point(0,0);
+        }
+        public void y() {
+           // Console.WriteLine("start");
+            l_get.Text = "FFFFF";
+            trackBar1.Value = 0;
+           // Console.WriteLine("end");
+        }
+        Form3 form3 = new Form3();
+        private void button4_Click(object sender, EventArgs e)
+        {
+           Form3 form3 = new Form3();
+            form3.ShowDialog();
+            //timer1.Start();
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            l_get.Text = "y";
+            if (form3.stateF3 == true)
+            {
+                timer1.Stop();
+            }
         }
     }
 }

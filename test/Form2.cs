@@ -120,7 +120,10 @@ namespace test
 
         private void Form2_Shown(object sender, EventArgs e)
         {
-            button3.PerformClick();
+            if (System.IO.File.Exists("pathLicense.txt"))//ถ้าเจอไฟล์
+            {
+                button3.PerformClick();
+            }
         }
     }
 }

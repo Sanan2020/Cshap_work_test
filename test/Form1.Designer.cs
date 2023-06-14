@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panAddress = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -58,6 +59,9 @@
             this.l_zoom = new System.Windows.Forms.Label();
             this.l_xy = new System.Windows.Forms.Label();
             this.btnAuto = new System.Windows.Forms.Button();
+            this.l_get = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1.SuspendLayout();
             this.panAddress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -198,9 +202,11 @@
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(35, 46);
+            this.trackBar1.Maximum = 300;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(208, 45);
             this.trackBar1.TabIndex = 2;
+            this.trackBar1.Value = 150;
             // 
             // panAddress3
             // 
@@ -358,11 +364,36 @@
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
+            // l_get
+            // 
+            this.l_get.AutoSize = true;
+            this.l_get.Location = new System.Drawing.Point(732, 532);
+            this.l_get.Name = "l_get";
+            this.l_get.Size = new System.Drawing.Size(35, 13);
+            this.l_get.TabIndex = 13;
+            this.l_get.Text = "label7";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(775, 527);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "btnF3";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 574);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.l_get);
             this.Controls.Add(this.btnAuto);
             this.Controls.Add(this.l_xy);
             this.Controls.Add(this.l_zoom);
@@ -429,6 +460,9 @@
         private System.Windows.Forms.Label l_zoom;
         private System.Windows.Forms.Label l_xy;
         private System.Windows.Forms.Button btnAuto;
+        private System.Windows.Forms.Button button4;
+        public System.Windows.Forms.Label l_get;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
