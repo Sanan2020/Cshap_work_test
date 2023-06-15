@@ -45,7 +45,8 @@ namespace test
                     Console.WriteLine("seve part seccess...");
 
                     this.Hide();
-                    Form1 frm = new Form1();
+                    //Form1 frm = new Form1();
+                    Form4 frm = new Form4();
                     frm.Show();
                 }
             }
