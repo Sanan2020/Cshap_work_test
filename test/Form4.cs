@@ -21,6 +21,7 @@ using Leadtools.ImageProcessing.Core;
 using Leadtools.Drawing;
 using System.Drawing.Imaging;
 using Leadtools.Dicom.Common.Extensions;
+using System.Reflection.Emit;
 
 namespace test
 {
@@ -57,19 +58,49 @@ namespace test
             }
         }
         RasterCodecs codecs = new RasterCodecs();
-        private void btnSave_Click(object sender, EventArgs e)
+        public String folderPath;
+        private void btnOpen_Click(object sender, EventArgs e)
         {
             codecs.ThrowExceptionsOnInvalidImages = true;
-            String folderPath;
+            
             OpenFileDialog ofile = new OpenFileDialog();
             ofile.Filter = "Image File (*.bmp,*.tif,*.pdf,*.jpg, *.png)|*.bmp;*.tif;*.pdf;*.jpg;*.png";
             if (DialogResult.OK == ofile.ShowDialog())
             {
                 folderPath = ofile.FileName;
                 RasterImage image = codecs.Load(Path.Combine(folderPath));
-                codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result1Bit.tif"), RasterImageFormat.Tif, 1);
-                Console.WriteLine("1Bit save...");
+                Console.WriteLine("btnOpen " + image.BitsPerPixel);
+                using (System.Drawing.Image destImage1 = RasterImageConverter.ConvertToImage(image, ConvertToImageOptions.None))
+                {
+                    picInput.Image = new Bitmap(destImage1);
+                    //MessageBox.Show(destImage1.ToString());
+                }
+               // Console.WriteLine("Input " + ChangeCommand().BitsPerPixel);
             }
+        }
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            //codecs.ThrowExceptionsOnInvalidImages = true;
+            using (System.Drawing.Image destImage1 = RasterImageConverter.ConvertToImage(ChangeCommand(), ConvertToImageOptions.None))
+            {
+                pic1bit.Image = new Bitmap(destImage1);
+                codecs.Save(ChangeCommand(), Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result1.tif"), RasterImageFormat.Tif, 1);
+                //MessageBox.Show(destImage1.ToString());
+            }
+            Console.WriteLine("Convert " + ChangeCommand().BitsPerPixel);
+            // codecs.ThrowExceptionsOnInvalidImages = true;
+            //AutoBinarizeCommand command = new AutoBinarizeCommand();
+            //command.Run(image);
+
+            // Create a new 4-bit image. 
+            /*
+              Console.WriteLine("output " + image.BitsPerPixel);
+              Console.WriteLine("output " + destImage.BitsPerPixel);
+              //codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result1Bit.tif"), RasterImageFormat.Tif, 1);
+              Console.WriteLine("1Bit save...");*/
+            l_await.Text = "Test";
+            await Task.Delay(2000);
+            l_await.Text = "";
         }
 
         private void btnOCR_Click(object sender, EventArgs e)
@@ -113,150 +144,126 @@ namespace test
                 RasterImage image = codecs.Load(Path.Combine(folderPath));
                 AutoBinarizeCommand command = new AutoBinarizeCommand();
                 command.Run(image);
-               // codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result1Bit.tif"), RasterImageFormat.Tif, 1);
-                codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "resultAutoBinarize.jpg"), RasterImageFormat.Jpeg, 24);
+               //codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result1Bit.tif"), RasterImageFormat.Tif, 1);
+                codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "resultAutoBinarize.jpg"), RasterImageFormat.Jpeg, 1);
                 Console.WriteLine(" AutoBinarize save...");
             }
         }
-        
 
-        private void btnSupConv_Click(object sender, EventArgs e)
-        {
-            //this.picInput.Image = new Bitmap(ofile.FileName);
-            /* using (Image destImage1 = RasterImageConverter.ConvertToImage(image1, ConvertToImageOptions.None))
-             {
-                 picInput.Image = new Bitmap(destImage1);
-                 //MessageBox.Show(destImage1.ToString());
-             }*/
-            //RasterImage image2 = codecs.Load(RasterImageFormat.Tif, 1);
+        public RasterImage ChangeCommand() {
             codecs.ThrowExceptionsOnInvalidImages = true;
-            String folderPath;
-            OpenFileDialog ofile = new OpenFileDialog();
-            ofile.Filter = "Image File (*.bmp,*.tif,*.pdf,*.jpg, *.png)|*.bmp;*.tif;*.pdf;*.jpg;*.png";
-            if (DialogResult.OK == ofile.ShowDialog())
+            RasterImage image = codecs.Load(Path.Combine(folderPath), 24, CodecsLoadByteOrder.Bgr, 1, 1);
+            if (AutoBinarize.Checked == true) {
+                AutoBinarizeCommand Binarize = new AutoBinarizeCommand();
+                Binarize.Run(image);
+            }
+            if (AutoColorLevel.Checked == true)
             {
-                folderPath = ofile.FileName;
-                RasterImage image = codecs.Load(Path.Combine(folderPath));
-                /* RasterImage destImage = new RasterImage(
-                    RasterMemoryFlags.Conventional,
-                    image.Width,
-                    image.Height,
-                    image.BitsPerPixel,
-                    image.Order,
-                    image.ViewPerspective,
-                    image.GetPalette(),
-                    IntPtr.Zero,
-                    0);
-                 // Copy the data from the source image to the destination image 
-                 image.Access();
-                 destImage.Access();
-
-                 byte[] buffer = new byte[image.BytesPerLine];
-
-                 for (int y = 0; y < image.Height; y++)
-                 {
-                     image.GetRow(y, buffer, 0, buffer.Length);
-                     destImage.SetRow(y, buffer, 0, buffer.Length);
-                 }
-
-                 destImage.Release();
-                 image.Release();
-                 // We do not need the source image anymore 
-                 image.Dispose();
-                 // save the destination image 
-                 codecs.Save(destImage, @"C:\Users\Administrator\Downloads\out\qq.bmp", RasterImageFormat.Bmp, 24);*/
-                // codecs.(destImage, RasterImageFormat, 1);
-                // สร้าง RasterImage ใหม่เพื่อเก็บภาพ 1 บิต
-
-                /*RasterImage destinationImage = new RasterImage(RasterMemoryFlags.Conventional, 1, 1, 1, RasterByteOrder.Bgr, RasterViewPerspective.TopLeft);
-
-                // ตั้งค่าคุณสมบัติการแปลงรูปภาพ
-                var ditheringCommand = new DitheringCommand();
-                ditheringCommand.DitheringMethod = DitheringMethod.FloydStein;
-                ditheringCommand.OutputBpp = 1;
-                ditheringCommand.OutputPalette = DitheringOutputPalette.BlackAndWhite;
-
-                // แปลงรูปภาพเป็น 1 บิตโดยใช้เทคนิค Dithering
-                ditheringCommand.Run(image, destinationImage);
-
-                // ทำสิ่งอื่น ๆ กับรูปภาพ 1 บิตที่ได้ เช่น การบันทึกลงดิสก์หรือประมวลผลต่อไป
-
-                // คืนค่าหน่วยความจำที่ใช้เก็บรูปภาพ
-                destinationImage.Dispose();*/
+                AutoColorLevelCommand ColorLevel = new AutoColorLevelCommand();
+                ColorLevel.Run(image);
+            }
+            if (GrayScale.Checked == true)
+            {
+                GrayScaleExtendedCommand command5 = new GrayScaleExtendedCommand();
+                command5.RedFactor = 500;
+                command5.GreenFactor = 250;
+                command5.BlueFactor = 250;
+                command5.Run(image);
+            }
+            using (System.Drawing.Image destImage1 = RasterImageConverter.ConvertToImage(image, ConvertToImageOptions.None))
+            {
+                picOutput.Image = new Bitmap(destImage1);
+                //MessageBox.Show(destImage1.ToString());
             }
 
-            //  codecs.Save(destImage, @"C:\Users\Administrator\Downloads\out\qq.bmp", RasterImageFormat.Bmp, 1);
-            // codecs.Save(image, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result.tif"), RasterImageFormat.Tif, 1);
-            /*  using (System.Drawing.Image destImage1 = RasterImageConverter.ConvertToImage(image, ConvertToImageOptions.None))
-              {
-                 //  codecs.Save(destImage1, Path.Combine(@"C:\Users\Administrator\Downloads\out\", "result.tif") RasterImageFormat.Tif, 1);
-                // codecs.Convert(image, );
-                 // destImage1.Save(@"C:\Users\Administrator\Downloads\out\result.tif", ImageFormat.Tiff);
-                  // picOutput.Image = new Bitmap(destImage1);
-                  //MessageBox.Show(destImage1.ToString());
-              }*/
-        }
-        public void RasterImageExample()
-        {
-            RasterCodecs codecs = new RasterCodecs();
-
-            string srcFileName = Path.Combine(LEAD_VARS.ImagesDir, "interlaced_footage.jpg");
-            string destFileName1 = Path.Combine(LEAD_VARS.ImagesDir, "Image1_RasterImage1.bmp");
-            string destFileName2 = Path.Combine(LEAD_VARS.ImagesDir, "Image1_RasterImage2.bmp");
-
-            // Load the image 
-            RasterImage srcImage = codecs.Load(srcFileName);
-
-            // Creates a new image in memory with same dimensions as the source image 
             RasterImage destImage = new RasterImage(
-               RasterMemoryFlags.Conventional,
-               srcImage.Width,
-               srcImage.Height,
-               srcImage.BitsPerPixel,
-               srcImage.Order,
-               srcImage.ViewPerspective,
-               srcImage.GetPalette(),
-               IntPtr.Zero,
-               0);
+                   RasterMemoryFlags.Conventional,
+                   image.Width,
+                   image.Height,
+                   1,
+                   image.Order,
+                   image.ViewPerspective,
+                   image.GetPalette(),
+                   IntPtr.Zero,
+                   0);
+            int bufferSize = RasterBufferConverter.CalculateConvertSize(
+               image.Width,
+               image.BitsPerPixel,
+               destImage.Width,
+               destImage.BitsPerPixel);
 
-            // Copy the data from the source image to the destination image 
-            srcImage.Access();
+            // Allocate the buffer in unmanaged memory 
+            IntPtr buffer = Marshal.AllocHGlobal(bufferSize);
+             //Assert.IsFalse(buffer == IntPtr.Zero);
+
+            // Process each row from srcImage to destImage. 
+            image.Access();
             destImage.Access();
-
-            byte[] buffer = new byte[srcImage.BytesPerLine];
-
-            for (int y = 0; y < srcImage.Height; y++)
+            for (int i = 0; i < image.Height; i++)
             {
-                srcImage.GetRow(y, buffer, 0, buffer.Length);
-                destImage.SetRow(y, buffer, 0, buffer.Length);
+                image.GetRow(i, buffer, image.BytesPerLine);
+                RasterBufferConverter.Convert(
+                   buffer,
+                   image.Width,
+                   image.BitsPerPixel,
+                   destImage.BitsPerPixel,
+                   image.Order,
+                   destImage.Order,
+                   null,
+                   null,
+                   0,
+                   8,
+                   0,
+                   RasterConvertBufferFlags.None);
+                destImage.SetRow(i, buffer, destImage.BytesPerLine);
             }
 
             destImage.Release();
-            srcImage.Release();
+            image.Release();
+            Marshal.FreeHGlobal(buffer); // Clean up 
 
-            // We do not need the source image anymore 
-            srcImage.Dispose();
-
-            // save the destination image 
-            codecs.Save(destImage, destFileName1, RasterImageFormat.Bmp, 24);
-
-            // perform image processing on the image 
-
-            FlipCommand flipCmd = new FlipCommand();
-            flipCmd.Horizontal = false;
-            flipCmd.Run(destImage);
-
-            // save it 
-            codecs.Save(destImage, destFileName2, RasterImageFormat.Bmp, 24);
-
-            // Clean up 
-            destImage.Dispose();
-            codecs.Dispose();
+            return destImage;
+        }
+        public class fcchange
+        {
+            public void change1() { 
+                
+            }
+        }
+        private void btnSupConv_Click(object sender, EventArgs e)
+        {
+            fcchange fc =new fcchange();
+            fc.change1();
         }
 
-        static class LEAD_VARS
+        private async void AutoBinarize_CheckedChanged(object sender, EventArgs e)
         {
-            public const string ImagesDir = @"C:\LEADTOOLS22\Resources\Images";
+            //MessageBox.Show(AutoBinarize.Checked.ToString());
+            if (AutoBinarize.Checked == true) {
+                ChangeCommand();
+                }
+            l_await.Text = "await";
+            await Task.Delay(2000);
+            l_await.Text = "";
+        }
+
+        private  async void AutoColorLevel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AutoColorLevel.Checked == true)
+            {
+                ChangeCommand();
+            }
+            l_await.Text = "await";
+            await Task.Delay(2000);
+            l_await.Text = "";
+        }
+
+        private void GrayScale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (GrayScale.Checked == true)
+            {
+                ChangeCommand();
+            }
         }
     }
 }
