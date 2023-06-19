@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Leadtools;
+using excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
+using Leadtools.Dicom.Common.Extensions;
+using Leadtools.Drawing;
 
 namespace test
 {
@@ -108,7 +112,7 @@ namespace test
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Image.FromFile(@"C:\Users\Administrator\Downloads\poc\image\Gray-FN.jpg");
+            //pictureBox1.Image = Image.FromFile(@"C:\Users\Administrator\Downloads\poc\image\Gray-FN.jpg");
             //if มี
             // SetLicenseFileExample();
 
@@ -252,7 +256,7 @@ namespace test
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
-            pictureBox1.Location = new Point(0,0);
+            //pictureBox1.Location = new Point(0,0);
         }
         public void y() {
            // Console.WriteLine("start");
@@ -276,6 +280,27 @@ namespace test
             {
                 timer1.Stop();
             }
+        }
+        
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            
+        }
+        
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            
+        }
+        
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+        public String folderPath;
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1Export f1ex = new Form1Export();
+            f1ex.ShowDialog();
         }
     }
 }
