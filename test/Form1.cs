@@ -171,10 +171,36 @@ namespace test
            // myPanel.Visible = false; // ซ่อน Panel
 
         }
-
+        int[,] a = new int[3, 3];
         private void button3_Click(object sender, EventArgs e)
         {
-          //  myPanel.Visible = true; // แสดง Panel
+            
+            /*
+              c  c  c 
+             r00 01 02
+             r10 11 12
+             r20 21 22
+             */
+            for (int i = 1; i <= 3; i++)
+            {
+                //row, colum = data
+                //objWorksheet.Cells[i,1] = i;
+                //objWorksheet.Cells[i,2] = "data";
+                a[1, 2] = 5;
+
+                /*objWorksheet.Cells[i, 1] = round2;
+                objWorksheet.Cells[i, 2] = list[i - 1];
+                objWorksheet.Cells[i, 3] = list2[i - 1];
+                Console.WriteLine(round2 + " " + list[i - 1]);*/
+            }
+            /*for (int i=0; i<a.Length;i++)
+            {
+                Console.WriteLine(a[0,0] + "\r\n");
+            }*/
+            Console.WriteLine(a[0, 0] + " " + a[0, 1] + " " + a[0, 2]);
+            Console.WriteLine(a[1, 0] + " " + a[1, 1] + " " + a[1, 2]);
+            Console.WriteLine(a[2, 0] + " " + a[2, 1] + " " + a[2, 2]);
+
 
         }
 
