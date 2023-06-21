@@ -3,144 +3,164 @@ using System.Drawing;
 using System.Windows.Forms;
 using Leadtools.Controls;
 using Leadtools;
+using Leadtools.Codecs;
+using Leadtools.Drawing;
+using static Leadtools.Documents.UI;
+using Leadtools.Document;
+using Spire.Xls.Core;
+using System.Net.NetworkInformation;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using Leadtools.ImageProcessing.Core;
 //using Leadtools.Document.Viewer;
 
 namespace test
 {
     public partial class Form5Viewer : Form
     {
-        public Form5Viewer()
-        {
+        public Form5Viewer(){
             InitializeComponent();
-            this.Size = new Size(800, 800);
         }
+        private void Form5Viewer_Load(object sender, EventArgs e){
+            panelImage.AutoScroll = true;
+            panelImage.BorderStyle = BorderStyle.Fixed3D;
+            piccenter.SizeMode = PictureBoxSizeMode.StretchImage;
+            panelcenter.BorderStyle = BorderStyle.Fixed3D;
 
-        public void ImageViewer_Example()
-        {
-            // Create the form that holds the ImageViewer 
-            new Form5Viewer().ShowDialog();
-        }
-        // LEADTOOLS ImageViewer to be used with this example 
-       // private ImageViewer imageViewer;
-        // Information label 
-        private Label _label;
-
-        protected override void OnLoad(EventArgs e)
-        {
-            // Create a panel to the top 
-            var panel = new Panel();
-            panel.Dock = DockStyle.Top;
-            panel.BorderStyle = BorderStyle.FixedSingle;
-            this.Controls.Add(panel);
-
-            // Add an "Example" button to the panel 
-            var button = new Button();
-            button.Text = "&Example";
-            button.Click += (sender, e1) => Example();
-            panel.Controls.Add(button);
-
-            // Add a label to the panel 
-            _label = new Label();
-            _label.Top = button.Bottom;
-            _label.Width = 800;
-            _label.Text = "Example...";
-            panel.Controls.Add(_label);
-
-            // Create the image viewer taking the rest of the form 
-            //_imageViewer = new ImageViewer();
-            imageViewer.Dock = DockStyle.Fill;
-            imageViewer.BackColor = Color.Bisque;
-            this.Controls.Add(imageViewer);
-            imageViewer.BringToFront();
-
-            // Add Pan/Zoom interactive mode 
-            // Click and drag to pan, CTRL-Click and drag to zoom in and out 
-            //imageViewer.DefaultInteractiveMode = new ImageViewerPanZoomInteractiveMode();
-
-            // Load an image 
-           // using (var codecs = new RasterCodecs())
-                //imageViewer.Image = codecs.Load(Path.Combine(LEAD_VARS.ImagesDir, "image1.cmp"));
-            imageViewer.Image = new Bitmap("C:\\LEADTOOLS22\\Resources\\Images\\Ocr1.tif");
-            base.OnLoad(e);
-        }
-
-        private void Example()
-        {
-            var panel2 = new Panel();
-            panel2.Dock = DockStyle.Top;
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            this.Controls.Add(panel2);
-            // Example code goes here 
-            // MessageBox.Show("Image");
-            var button2 = new Button();
-            button2.Text = "&Example";
-            button2.Click += (sender, e1) => Example();
-            panel2.Controls.Add(button2);
-        }
-        static class LEAD_VARS
-        {
-            public const string ImagesDir = @"C:\LEADTOOLS21\Resources\Images";
-        }
-        /* protected override void OnLoad(EventArgs e)
-         {
-             // Create a new image viewer instance 
-            // ImageViewer imageViewer = new ImageViewer();
-             // Set some properties 
-             imageViewer.Dock = DockStyle.Fill;
-             // Add it to the form 
-             this.Controls.Add(imageViewer);
-             // Load an image into it 
-             imageViewer.Image = new Bitmap("C:\\LEADTOOLS22\\Resources\\Images\\Ocr1.tif");
-
-             base.OnLoad(e);
-         }*/
-        private void Form5Viewer_Load(object sender, EventArgs e)
-        {
-            // Disable the example button, this should only run once 
-            //exampleButton.Enabled = false;
-
-           /*var view = documentViewer.view;
-            // Get its image viewer 
-            var imageViewer = view.ImageViewer;
-            // Hook to the PostRender 
-            imageViewer.PostRenderItem += (sender, e) =>
+            //Licens
+            RasterSupport.SetLicense(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC",
+                    File.ReadAllText(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC.KEY"));
+            bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
+            if (isLocked)
+                Console.WriteLine("Document support is locked");
+            else
             {
-                // Get the image viewer item for the page 
-                var item = e.Item;
+                Console.WriteLine("Document support is unlocked");
+            }
+        }
+        String selectImage;
+        
+        List<RasterImage> imagescol = new List<RasterImage>();
+        private void lToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /* OpenFileDialog ofd = new OpenFileDialog();
+             ofd.Title = "";
+             ofd.Multiselect = true;
+             ofd.Filter = "All File |*.*";
+             DialogResult dr = ofd.ShowDialog();
+             if (dr == System.Windows.Forms.DialogResult.OK) {
+                 String[] file = ofd.FileNames;
+                 int x = 20;
+                 int y = 20;
+                 int maxHight = -1;//
+                 foreach (string img in file) { 
+                     PictureBox pic = new PictureBox();
+                     pic.Image = Image.FromFile(img);
+                     pic.Location = new Point(x, y);
+                     pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                     x += pic.Width + 10;//
+                     maxHight = Math.Max(pic.Height,maxHight);
+                     if (x > this.ClientSize.Width - 100) {
+                         x = 20;
+                         y += maxHight + 10;
+                     }
+                     this.panelImage.Controls.Add(pic);
+                 }
+             }*/
+            
+            RasterCodecs codecs = new RasterCodecs();
+            codecs.ThrowExceptionsOnInvalidImages = true;
+            
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "";
+            ofd.Multiselect = true;
+            ofd.Filter = "All File |*.*";
+            DialogResult dr = ofd.ShowDialog();
+            int page = 0;
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
 
-                // Get the current rectangle for the image 
-                var bounds = imageViewer.GetItemViewBounds(item, ImageViewerItemPart.Image, false);
-
-                // Build the text we want. The page number is the item index + 1 
-                var pageNumber = imageViewer.Items.IndexOf(item) + 1;
-                var text = "Page " + pageNumber.ToString();
-
-                // Get the image transformation for this item 
-                var transform = imageViewer.GetItemImageTransform(e.Item);
-
-                // Apply it to the context 
-                var gstate = e.Context.Save();
-                using (var matrix = new System.Drawing.Drawing2D.Matrix(
-                   (float)transform.M11,
-                   (float)transform.M12,
-                   (float)transform.M21,
-                   (float)transform.M22,
-                   (float)transform.OffsetX,
-                   (float)transform.OffsetY))
-                {
-                    e.Context.MultiplyTransform(matrix);
+                String[] file = ofd.FileNames;
+                int x = 20;//ระวหว่าง panel
+                int y = 20;//ระวหว่าง panel
+                int maxWidth = -1;
+                
+                PictureBox pic2 = new PictureBox();
+                foreach (string img in file){
+                    page++;
+                    PictureBox pic1 = new PictureBox();
+                    RasterImage image = codecs.Load(Path.Combine(img));
+                    imagescol.Add(image);
+                    PictureBox pic = new PictureBox();
+                    pic1.Height = 200;
+                    pic1.Width = 170;
+                    // pic1.Image = Image.FromFile(img);
+                    using (Image destImage1 = RasterImageConverter.ConvertToImage(imagescol[page-1], ConvertToImageOptions.None))
+                    {
+                         pic1.Image = new Bitmap(destImage1);
+                    }
+                    selectImage = page.ToString();
+                    pic1.Location = new Point(x, y);
+                    pic1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pic1.BorderStyle = BorderStyle.Fixed3D;
+                    pic1.Name = page.ToString();
+                    y += pic1.Height + 10;
+                    maxWidth = Math.Max(pic1.Height, maxWidth);
+                    if (x > this.ClientSize.Width - 100)
+                    {
+                        y = 20;
+                        x += maxWidth + 100;
+                    }
+                    this.panelImage.Controls.Add(pic1);
+                    Console.WriteLine(pic1.Location.X.ToString()+pic1.Location.Y.ToString());
+                    Console.WriteLine(pic1.Name);
+                    pic1.MouseClick += new MouseEventHandler(pic1_MouseClick);
+                    Console.WriteLine(selectImage);
+                    /*pic2.Image = Image.FromFile(img);
+                    pic2.Location = new Point(x, y);
+                    pic2.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pic2.Name = "pic2";
+                    y += pic2.Height + 10;
+                    maxWidth = Math.Max(pic2.Height, maxWidth);
+                    if (x > this.ClientSize.Width - 100)
+                    {
+                        y = 40;
+                        x += maxWidth + 20;
+                    }
+                    this.panelImage.Controls.Add(pic2);
+                    Console.WriteLine(pic2.Location.X.ToString() + pic2.Location.Y.ToString());
+                    Console.WriteLine(pic2.Name);
+                    pic2.MouseClick += new MouseEventHandler(pic1_MouseClick);*/
+                    
                 }
-
-                // Render the text at the bottom of the bounds 
-                var flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.Bottom;
-                var rc = new Rectangle((int)bounds.X, (int)bounds.Y, (int)bounds.Width, (int)bounds.Height);
-                TextRenderer.DrawText(e.Context, text, imageViewer.Font, rc, Color.White, Color.Black, flags);
-
-                e.Context.Restore(gstate);
-            };
-
-            // Invalidate so our changes take effect the first time 
-            view.Invalidate();*/
+               // chang();
+            }
+        }
+        void chang() {
+            for (int i = 0; i<1; i++)
+            {
+                MinimumCommand command9 = new MinimumCommand();
+                //Apply the Minimum filter. 
+                command9.Dimension = 8;
+                command9.Run(imagescol[0]);
+                command9.Run(imagescol[2]);
+            }
+        }
+        private void pic1_MouseClick(object sender, MouseEventArgs e) {
+            PictureBox pb = (PictureBox)sender;
+            /*if (pb.Name == "1")
+            {*/
+                //MessageBox.Show(pb.Name);
+                using (Image destImage1 = RasterImageConverter.ConvertToImage(imagescol[int.Parse(pb.Name)-1], ConvertToImageOptions.None))
+                {
+                    piccenter.Image = new Bitmap(destImage1);
+                }
+           // }
+        }
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            //MessageBox.Show("ff");
         }
     }
 }
