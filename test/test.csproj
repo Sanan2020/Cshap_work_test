@@ -183,6 +183,7 @@
       <DependentUpon>Form5Viewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Leadtools\Documents.cs" />
+    <Compile Include="ltfil\FILEINFO_KA.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
