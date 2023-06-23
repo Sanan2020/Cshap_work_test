@@ -31,12 +31,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.llToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.l_numberPages = new System.Windows.Forms.Label();
+            this.piccenter = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.piccenter)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -61,9 +63,15 @@
             // lToolStripMenuItem
             // 
             this.lToolStripMenuItem.Name = "lToolStripMenuItem";
-            this.lToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.lToolStripMenuItem.Text = "Open";
             this.lToolStripMenuItem.Click += new System.EventHandler(this.lToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // splitContainer1
             // 
@@ -81,12 +89,6 @@
             this.splitContainer1.SplitterDistance = 254;
             this.splitContainer1.TabIndex = 5;
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
             // l_numberPages
             // 
             this.l_numberPages.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -96,11 +98,20 @@
             this.l_numberPages.Size = new System.Drawing.Size(0, 13);
             this.l_numberPages.TabIndex = 7;
             // 
+            // piccenter
+            // 
+            this.piccenter.Location = new System.Drawing.Point(888, 167);
+            this.piccenter.Name = "piccenter";
+            this.piccenter.Size = new System.Drawing.Size(229, 128);
+            this.piccenter.TabIndex = 8;
+            this.piccenter.TabStop = false;
+            // 
             // Form5Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1117, 561);
+            this.Controls.Add(this.piccenter);
             this.Controls.Add(this.l_numberPages);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
@@ -112,6 +123,7 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.piccenter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +136,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label l_numberPages;
+        private System.Windows.Forms.PictureBox piccenter;
     }
 }

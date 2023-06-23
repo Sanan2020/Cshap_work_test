@@ -5,7 +5,7 @@ using Leadtools.Controls;
 using Leadtools;
 using Leadtools.Codecs;
 using Leadtools.Drawing;
-using static Leadtools.Documents.UI;
+//using static Leadtools.Documents.UI;
 using Leadtools.Document;
 using Spire.Xls.Core;
 using System.Net.NetworkInformation;
@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Leadtools.ImageProcessing.Core;
 using Leadtools.Svg;
+using Leadtools.ImageProcessing.Color;
 //using Leadtools.Document.Viewer;
 
 namespace test
@@ -116,6 +117,7 @@ namespace test
                     Console.WriteLine("Page "+pageCount);
                     l_numberPages.Text = pageCount.ToString() + " Page";
                     // Loads all the pages into the viewer
+                    
                     for (var pageNumber = 1; pageNumber <= pageCount; pageNumber++)
                     {
                         // Load it as a raster image and add it
@@ -204,7 +206,7 @@ namespace test
                      pic1.MouseClick += new MouseEventHandler(pic1_MouseClick);
                      Console.WriteLine(selectImage);*/
                 }
-                 chang();
+                // chang();
             }
         }
         void chang() {
@@ -252,14 +254,17 @@ namespace test
             PictureBox pb = (PictureBox)sender;
             /*if (pb.Name == "1")
             {*/
-                //MessageBox.Show(pb.Name);
-
-                using (Image destImage1 = RasterImageConverter.ConvertToImage(imagescol[int.Parse(pb.Name)-1], ConvertToImageOptions.None))
-                {
-                   // piccenter.Image = new Bitmap(destImage1);
-                }
-
-
+            //MessageBox.Show(pb.Name);
+            ContrastBrightnessIntensityCommand command = new ContrastBrightnessIntensityCommand();
+            //Increase the brightness by 25 percent  of the possible range. 
+            command.Brightness = 484;   //484
+            command.Contrast = 394;     //394
+            command.Intensity = 118;    //118
+            command.Run(imagescol[int.Parse(pb.Name) - 1]);
+            //PictureBox pic3 = new PictureBox();
+            using (Image destImage1 = RasterImageConverter.ConvertToImage(imagescol[int.Parse(pb.Name)-1], ConvertToImageOptions.None)){
+                 piccenter.Image = new Bitmap(destImage1);
+            }
            // }
         }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
