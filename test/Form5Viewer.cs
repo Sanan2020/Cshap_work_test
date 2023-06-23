@@ -39,8 +39,8 @@ namespace test
             //splitContainer1.Width = 100;
             Console.WriteLine(splitContainer1.Panel2.Width);
             //Licens
-            RasterSupport.SetLicense(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC",
-                    File.ReadAllText(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC.KEY"));
+           /* RasterSupport.SetLicense(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC",
+                    File.ReadAllText(@"C:\Users\Administrator\Downloads\licens\LEADTOOLS.LIC.KEY"));*/
             bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
             if (isLocked)
                 Console.WriteLine("Document support is locked");
