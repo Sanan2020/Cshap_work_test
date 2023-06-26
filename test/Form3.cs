@@ -32,5 +32,10 @@ namespace test
         {
             Form1.form1.y();
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
