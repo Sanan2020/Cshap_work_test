@@ -33,7 +33,7 @@
             // 
             // btnsend
             // 
-            this.btnsend.Location = new System.Drawing.Point(153, 60);
+            this.btnsend.Location = new System.Drawing.Point(335, 12);
             this.btnsend.Name = "btnsend";
             this.btnsend.Size = new System.Drawing.Size(75, 23);
             this.btnsend.TabIndex = 0;
