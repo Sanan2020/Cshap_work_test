@@ -46,7 +46,7 @@ namespace test
 
                     this.Hide();
                     //Form1 frm = new Form1();
-                    Form5Viewer frm = new Form5Viewer();
+                    Form5 frm = new Form5();
                     frm.Show();
                 }
             }
