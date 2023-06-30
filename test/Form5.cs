@@ -18,8 +18,10 @@ using Leadtools.ImageProcessing;
 using Leadtools.Pdf;
 using Leadtools.Svg;
 using Spire.Pdf;
+using Spire.Xls.Core.Converter.Exporting.UOF;
 using static System.Resources.ResXFileRef;
-
+using Leadtools.Document.Writer;
+//using Leadtools.WinForms;
 namespace test
 {
     public partial class Form5 : Form
@@ -28,18 +30,53 @@ namespace test
         {
             InitializeComponent();
         }
-
+        public List<RasterImage> images = new List<RasterImage>();
         private void Form5_Load(object sender, EventArgs e)
         {
-            DocumentRasterPageExample();
-           // DocumentWriterExample();
-           //PDFFileMergeWithExample();
-           //PDFAddImagesExample();
+            //DocumentRasterPageExample();
+            // DocumentWriterExample();
+            //PDFFileMergeWithExample();
+            //PDFAddImagesExample();
             /* using (Converter converter = new Converter("image.jpg"))
              {
                  PdfConvertOptions options = new PdfConvertOptions();
                  converter.Convert("imageToPdf.pdf", options);
              }*/
+
+            /**/
+            var codecs = new RasterCodecs();
+            RasterImage image1 = codecs.Load(Path.Combine(LEAD_VARS.ImagesDir, "1.pdf"));
+            RasterImage image2 = codecs.Load(Path.Combine(LEAD_VARS.ImagesDir, "2.pdf"));
+            images.Add(image1);
+            images.Add(image2);
+            var docWriter = new DocumentWriter();
+            // Create a new instance of the LEADTOOLS Document Writer 
+            
+            // Begin the document 
+            var outputFileName = Path.Combine(LEAD_VARS.ImagesDir, "out_Example.pdf");
+            docWriter.BeginDocument(outputFileName, DocumentFormat.Pdf);
+          
+
+            // Finally, add a third page as an image 
+            var rasterPage = new DocumentWriterRasterPage();
+            // กำหนดค่าขนาดหน้าเอกสาร PDF
+            var emptyPage = new DocumentWriterEmptyPage();
+            DocumentOptions docOptions = docWriter.GetOptions(DocumentFormat.Pdf) as DocumentOptions;
+            docOptions.EmptyPageWidth = 612; // ขนาดหน้ากระดาษเป็นพิกเซล (8.5 x 11 นิ้ว)
+            docOptions.EmptyPageHeight = 792;
+            docWriter.AddPage(emptyPage);
+
+            // เพิ่มหน้าในเอกสาร PDF
+            foreach (RasterImage image in images)
+            {
+                using (rasterPage.Image = image)
+                {
+                    // Add it 
+                    docWriter.AddPage(rasterPage);
+                }
+            }
+            // Finally finish writing the HTML file on disk 
+            docWriter.EndDocument();
         }
         public List<String> imagescol = new List<String>();
         RasterImage im;
@@ -119,7 +156,7 @@ namespace test
             public const string ImagesDir = @"C:\Users\Administrator\Downloads\merged";
         }
 
-        public void PDFAddImagesExample()//แทรกภาพเข้าไปบนหน้าเอกสาร
+        public void PDFAddImagesExample()//แทรกภาพเข้าไปบนหน้าเอกสาร***
         {
             string srcFileName = Path.Combine(LEAD_VARS.ImagesDir, "leadtools.pdf"); ;
             string dstFileName = Path.Combine(LEAD_VARS.ImagesDir, @"out.pdf");
@@ -192,5 +229,6 @@ namespace test
             docWriter.EndDocument();
             codecs.Dispose();
         }
+
     }
 }
