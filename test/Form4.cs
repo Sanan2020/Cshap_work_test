@@ -63,13 +63,13 @@ namespace test
                 Console.WriteLine(file);
             }*/
 
-            DirectoryInfo di = new DirectoryInfo(@"C:\Users\Administrator\source\repos\project1\project1\bin\profile");
+           /* DirectoryInfo di = new DirectoryInfo(@"C:\Users\Administrator\source\repos\project1\project1\bin\profile");
             foreach (var fi in di.GetFiles("*.txt"))
             {
                 //Console.WriteLine(fi.Name);
                 string[] nm = fi.Name.Split('.');
                 Console.WriteLine(nm[0]);
-            }
+            }*/
         }
         RasterCodecs codecs = new RasterCodecs();
         public String folderPath;
