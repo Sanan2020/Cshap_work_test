@@ -1,6 +1,6 @@
 ﻿namespace test
 {
-    partial class Form3
+    partial class popProcess
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnsend = new System.Windows.Forms.Button();
+            this.progressBarX1 = new DevComponents.DotNetBar.Controls.ProgressBarX();
             this.SuspendLayout();
             // 
-            // btnsend
+            // progressBarX1
             // 
-            this.btnsend.Location = new System.Drawing.Point(335, 12);
-            this.btnsend.Name = "btnsend";
-            this.btnsend.Size = new System.Drawing.Size(75, 23);
-            this.btnsend.TabIndex = 0;
-            this.btnsend.Text = "button1";
-            this.btnsend.UseVisualStyleBackColor = true;
-            this.btnsend.Click += new System.EventHandler(this.btnsend_Click);
+            this.progressBarX1.Location = new System.Drawing.Point(41, 28);
+            this.progressBarX1.Name = "progressBarX1";
+            this.progressBarX1.ProgressType = DevComponents.DotNetBar.eProgressItemType.Marquee;
+            this.progressBarX1.Size = new System.Drawing.Size(147, 23);
+            this.progressBarX1.TabIndex = 2;
+            this.progressBarX1.Text = "progressBarX1";
             // 
-            // Form3
+            // popProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 231);
-            this.Controls.Add(this.btnsend);
-            this.Name = "Form3";
-            this.Text = "Form3";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
-            this.Load += new System.EventHandler(this.Form3_Load);
+            this.ClientSize = new System.Drawing.Size(228, 78);
+            this.Controls.Add(this.progressBarX1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "popProcess";
+            this.Text = "popProcess";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnsend;
+        private DevComponents.DotNetBar.Controls.ProgressBarX progressBarX1;
     }
 }

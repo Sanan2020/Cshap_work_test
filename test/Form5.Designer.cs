@@ -1,6 +1,6 @@
 ﻿namespace test
 {
-    partial class Form3
+    partial class Form5
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnsend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnsend
-            // 
-            this.btnsend.Location = new System.Drawing.Point(335, 12);
-            this.btnsend.Name = "btnsend";
-            this.btnsend.Size = new System.Drawing.Size(75, 23);
-            this.btnsend.TabIndex = 0;
-            this.btnsend.Text = "button1";
-            this.btnsend.UseVisualStyleBackColor = true;
-            this.btnsend.Click += new System.EventHandler(this.btnsend_Click);
-            // 
-            // Form3
+            // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 231);
-            this.Controls.Add(this.btnsend);
-            this.Name = "Form3";
-            this.Text = "Form3";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
-            this.Load += new System.EventHandler(this.Form3_Load);
+            this.ClientSize = new System.Drawing.Size(619, 200);
+            this.Name = "Form5";
+            this.Text = "Form5";
+            this.Load += new System.EventHandler(this.Form5_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnsend;
     }
 }
