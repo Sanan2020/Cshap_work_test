@@ -28,10 +28,10 @@ namespace test
             // f1.y();
             // Console.WriteLine(f1.GetL_get());
             // Form1 f1 = new Form1();
-            using (popProcess pp = new popProcess(data))
+            /*using (popProcess pp = new popProcess(data))
             {
                 pp.ShowDialog(this);
-            }
+            }*/
         }
         void data() {
             for (int i =0;i<=500;i++) { 
