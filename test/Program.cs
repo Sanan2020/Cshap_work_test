@@ -16,7 +16,15 @@ namespace test
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             Application.Run(new Form3());
+=======
+<<<<<<< HEAD
+            Application.Run(new Form4());
+=======
+            Application.Run(new Form3());
+>>>>>>> update
+>>>>>>> update
         }
     }
 }

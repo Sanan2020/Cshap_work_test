@@ -26,7 +26,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+<<<<<<< HEAD
     <ApplicationRevision>8</ApplicationRevision>
+=======
+    <ApplicationRevision>12</ApplicationRevision>
+>>>>>>> update
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -71,6 +75,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>test_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>doc.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BitMiracle.LibTiff.NET, Version=2.4.649.0, Culture=neutral, PublicKeyToken=53879b3e20e7a7d6, processorArchitecture=MSIL">
@@ -296,7 +303,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="doc.ico" />
     <Content Include="OcrLEADRuntime\US_Cities.txt" />
+    <Content Include="pngtree-doc-file-document-icon-png-image_913809.ico" />
     <None Include="Resources\561ccb058651f-resize-500x500.jpg" />
   </ItemGroup>
   <ItemGroup>

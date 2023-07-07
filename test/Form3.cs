@@ -29,10 +29,12 @@ namespace test
             // Console.WriteLine(f1.GetL_get());
 
             // Form1 f1 = new Form1();
+<<<<<<< HEAD
             /*using (popProcess pp = new popProcess(data))
             {
                 pp.ShowDialog(this);
             }*/
+<<<<<<< HEAD
 
             // สร้าง Popup
            
@@ -58,6 +60,43 @@ namespace test
 
             // อัปเดตข้อความใน Popup
             
+=======
+=======
+
+
+            /* using (popProcess pp = new popProcess(data))
+             {
+                 pp.ShowDialog(this);
+             }*/
+
+            /*Form form1 = new Form();
+            Button button1 = new Button();
+            button1.Text = "OK";
+            button1.Location = new Point(10, 10);
+            button1.DialogResult = DialogResult.OK;
+            form1.Text = "My Dialog Box";
+            form1.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form1.AcceptButton = button1;
+            form1.StartPosition = FormStartPosition.CenterScreen;
+            form1.Controls.Add(button1);
+            form1.ShowDialog();
+            if (form1.DialogResult == DialogResult.OK)
+            {
+                // Display a message box indicating that the OK button was clicked.
+                MessageBox.Show("The OK button on the form was clicked.");
+                // Optional: Call the Dispose method when you are finished with the dialog box.
+                form1.Dispose();
+            }*/
+            DialogResult res = MessageBox.Show("New Profile Success", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+            if (res == DialogResult.OK)
+            {
+                //MessageBox.Show("You have clicked Ok Button");
+                //Some task…
+
+            }
+>>>>>>> update
+>>>>>>> update
         }
         void data() {
             for (int i =0;i<=500;i++) { 
