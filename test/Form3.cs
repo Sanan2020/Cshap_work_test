@@ -20,18 +20,44 @@ namespace test
         {
             InitializeComponent();
         }
-        
-        private void btnsend_Click(object sender, EventArgs e)
+        ProgressPopup popup = new ProgressPopup();
+        private async void btnsend_Click(object sender, EventArgs e)
         {
             // Form1 f1 = SingeltonForm<Form1>.Instance;
             // Form1 f1 = new Form1();
             // f1.y();
             // Console.WriteLine(f1.GetL_get());
+
             // Form1 f1 = new Form1();
             /*using (popProcess pp = new popProcess(data))
             {
                 pp.ShowDialog(this);
             }*/
+
+            // สร้าง Popup
+           
+            popup.Show();
+
+            // กระบวนการปรับแต่ง
+            await ProcessConfiguration();
+
+            // ปิด Popup เมื่อกระบวนการเสร็จสิ้น
+            popup.Close();
+            popup.Dispose();
+            popup = null;
+        }
+      
+
+        private async Task ProcessConfiguration()
+        {
+            // ทำกระบวนการปรับแต่งที่ต้องการ
+            // คุณสามารถเรียกใช้เมธอดใน Popup เพื่ออัปเดตข้อความ
+           
+            popup.UpdateProgress("กำลังปรับแต่ง...");
+            await Task.Delay(5000); // ตัวอย่างการทำงานในเวลา 5 วินาที
+
+            // อัปเดตข้อความใน Popup
+            
         }
         void data() {
             for (int i =0;i<=500;i++) { 
@@ -69,6 +95,36 @@ namespace test
             {
                 //Console.Write(imagescol[i]);
                 Console.WriteLine(imagescol[i]);
+            }
+        }
+
+        private async void buttonX1_Click(object sender, EventArgs e)
+        {
+            // แสดงกล่องข้อความหรือสถานะว่ากำลังปรับแต่ง
+            lblStatus.Text = "กำลังปรับแต่ง...";
+
+            // สร้าง Task เพื่อดำเนินการปรับแต่ง
+            Task<bool> processTask = Task.Run(() =>
+            {
+                // ทำกระบวนการปรับแต่งที่ต้องการ
+                // คืนค่า true หรือ false ตามผลลัพธ์ของกระบวนการ
+
+                // ตัวอย่างกระบวนการปรับแต่ง
+                Thread.Sleep(5000); // ทดสอบความล่าช้า ให้ทำงานเป็นเวลา 5 วินาที
+                return true; // คืนค่าเป็น true เมื่อปรับแต่งเสร็จสิ้น
+            });
+
+            // รอให้ Task เสร็จสิ้น
+            bool isProcessed = await processTask;
+
+            // แสดงข้อความหรือสถานะตามผลลัพธ์ของกระบวนการ
+            if (isProcessed)
+            {
+                lblStatus.Text = "ปรับแต่งเสร็จสิ้น";
+            }
+            else
+            {
+                lblStatus.Text = "เกิดข้อผิดพลาดในการปรับแต่ง";
             }
         }
     }
